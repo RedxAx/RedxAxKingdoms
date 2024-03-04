@@ -1,0 +1,4 @@
+name: RedxAxKingdoms
+version: '${project.version}'
+main: me.redxax.redxaxkingdoms.RedxAxKingdoms
+api-version: '1.20'
