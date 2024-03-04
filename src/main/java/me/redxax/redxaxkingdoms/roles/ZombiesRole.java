@@ -15,7 +15,11 @@ public class ZombiesRole implements Listener {
             if (player.hasPermission("k.zombies") && event.getEntity() instanceof Zombie) {
                 event.setCancelled(true);
             } else if (player.hasPermission("k.zombies")) {
-                if (Math.random() <= 0.5) {
+                if (event.getEntity() instanceof Player) {
+                    Player damagedPlayer = (Player) event.getEntity();
+                    if (damagedPlayer.hasPermission("k.zombies")) return;
+                }
+                if (Math.random() <= 0.25) {
                     reducePlayerHunger((Player) event.getEntity(), 0.5);
                 }
             }

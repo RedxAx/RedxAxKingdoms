@@ -24,7 +24,7 @@ public class SlimesRole implements Listener {
     public void onItemThrow(PlayerDropItemEvent event) {
         Player player = event.getPlayer();
 
-        if (player.hasPermission("k.slimes") && Math.random() < 0.3) {
+        if (player.hasPermission("k.slimes") && Math.random() < 0.75) {
             event.setCancelled(true);
             player.playSound(player.getLocation(), Sound.ENTITY_SLIME_JUMP, 1.0F, 1.0F);
         }

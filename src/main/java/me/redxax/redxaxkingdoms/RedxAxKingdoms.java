@@ -1,9 +1,9 @@
 package me.redxax.redxaxkingdoms;
 
 import me.redxax.redxaxkingdoms.roles.SlimesRole;
-import me.redxax.redxaxkingdoms.roles.ThundersRole;
 import me.redxax.redxaxkingdoms.roles.WitchesRole;
 import me.redxax.redxaxkingdoms.roles.ZombiesRole;
+import me.redxax.redxaxkingdoms.roles.ThundersRole;
 
 import org.bukkit.plugin.java.JavaPlugin;
 

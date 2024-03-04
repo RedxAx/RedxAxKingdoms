@@ -7,7 +7,37 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
+import java.util.Random;
+
 public class WitchesRole implements Listener {
+    private final PotionEffectType[] goodEffects = {
+            PotionEffectType.REGENERATION,
+            PotionEffectType.DAMAGE_RESISTANCE,
+            PotionEffectType.JUMP,
+            PotionEffectType.SPEED,
+            PotionEffectType.FIRE_RESISTANCE,
+            PotionEffectType.INCREASE_DAMAGE,
+            PotionEffectType.INVISIBILITY,
+            PotionEffectType.NIGHT_VISION,
+            PotionEffectType.WATER_BREATHING,
+            PotionEffectType.HEALTH_BOOST,
+            PotionEffectType.ABSORPTION,
+            PotionEffectType.SATURATION
+    };
+
+    private final PotionEffectType[] badEffects = {
+            PotionEffectType.POISON,
+            PotionEffectType.WITHER,
+            PotionEffectType.BLINDNESS,
+            PotionEffectType.CONFUSION,
+            PotionEffectType.HARM,
+            PotionEffectType.HUNGER,
+            PotionEffectType.LEVITATION,
+            PotionEffectType.SLOW,
+            PotionEffectType.WEAKNESS
+    };
+
+    private final Random random = new Random();
 
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
@@ -15,33 +45,20 @@ public class WitchesRole implements Listener {
 
         Player player = (Player) event.getDamager();
 
-        if (player.hasPermission("k.witches") && Math.random() < 0.1) {
-            if (Math.random() < 0.9) {
-                // Apply a good effect
-                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 600, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 600, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 600, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 600, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 600, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 600, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 600, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 600, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, 600, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 600, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 600, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 600, 1));
+        if (event.getEntity() instanceof Player) {
+            Player damagedPlayer = (Player) event.getEntity();
+            if (damagedPlayer.hasPermission("k.witches")) return;
+        }
 
+        if (player.hasPermission("k.witches") && Math.random() < 0.05) {
+            if (Math.random() < 0.6) {
+                // Apply a random good effect
+                PotionEffectType effect = goodEffects[random.nextInt(goodEffects.length)];
+                player.addPotionEffect(new PotionEffect(effect, 600, 1));
             } else {
-                // Apply a bad effect
-                player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 600, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 600, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 600, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 600, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.HARM, 600, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 600, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 600, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 600, 4));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 600, 2));
+                // Apply a random bad effect
+                PotionEffectType effect = badEffects[random.nextInt(badEffects.length)];
+                player.addPotionEffect(new PotionEffect(effect, 600, 1));
             }
         }
     }
